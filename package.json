@@ -1,0 +1,27 @@
+{
+  "name": "tmtemetm-fsopen-backend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmtemetm/tmtemetm-fsopen-backend.git"
+  },
+  "author": "tmtemetm",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tmtemetm/tmtemetm-fsopen-backend/issues"
+  },
+  "homepage": "https://github.com/tmtemetm/tmtemetm-fsopen-backend#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
