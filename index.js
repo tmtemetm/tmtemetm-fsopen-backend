@@ -31,6 +31,19 @@ app.get(personsBaseUrl, (request, response) => {
   response.json(persons)
 })
 
+app.get('/info', (request, response) => {
+  response.send(
+    `<div>
+      <p>
+        Phonebook has info for ${persons.length} people
+      </p>
+      <p>
+        ${new Date()}
+      </p>
+    </div>`
+  )
+})
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
