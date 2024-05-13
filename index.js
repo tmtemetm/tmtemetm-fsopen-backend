@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+app.use(express.json())
 
 const personsBaseUrl = '/api/persons'
 const PORT = 3001
@@ -41,6 +42,22 @@ app.get(`${personsBaseUrl}/:id`, (request, response) => {
     response.status(404)
       .end()
   }
+})
+
+const generateId = () =>
+  Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
+
+app.post(personsBaseUrl, (request, response) => {
+  const { name, number } = request.body
+
+  const person = {
+    id: generateId(),
+    name,
+    number
+  }
+  persons = persons.concat(person)
+
+  response.json(person)
 })
 
 app.delete(`${personsBaseUrl}/:id`, (request, response) => {
