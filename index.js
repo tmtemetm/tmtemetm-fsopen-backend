@@ -50,6 +50,27 @@ const generateId = () =>
 app.post(personsBaseUrl, (request, response) => {
   const { name, number } = request.body
 
+  if (!name) {
+    return response.status(400)
+      .json({
+        error: 'name missing'
+      })
+  }
+
+  if (!number) {
+    return response.status(400)
+      .json({
+        error: 'number missing'
+      })
+  }
+
+  if (persons.some(person => person.name === name)) {
+    return response.status(400)
+      .json({
+        error: 'name must be unique'
+      })
+  }
+
   const person = {
     id: generateId(),
     name,

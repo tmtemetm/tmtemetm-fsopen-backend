@@ -5,3 +5,34 @@ Content-Type: application/json
   "name": "Alan Turing",
   "number": "23-06-1912"
 }
+
+###
+
+# Name missing, should return 400
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Linus Torvalds"
+}
+
+###
+
+# Number missing, should return 400
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "number": "1337"
+}
+
+###
+
+# Duplicate name, should return 400
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Alan Turing",
+  "number": "23-06-1912"
+}
