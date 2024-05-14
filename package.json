@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "build:ui": "rm -rf dist && cd ../tmtemetm-fsopen-frontend/ && npm run build && cp -r dist ../tmtemetm-fsopen-backend/",
+    "deploy": "git add . && git commit -m build && git push",
+    "deploy:full": "npm run build:ui && npm run deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
