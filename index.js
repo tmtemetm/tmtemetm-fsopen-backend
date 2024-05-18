@@ -16,46 +16,22 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :b
 const personsBaseUrl = '/api/persons'
 const PORT = process.env.PORT || 3001
 
-let persons = [
-  { 
-    id: 1,
-    name: 'Arto Hellas', 
-    number: '040-123456'
-  },
-  { 
-    id: 2,
-    name: 'Ada Lovelace', 
-    number: '39-44-5323523'
-  },
-  { 
-    id: 3,
-    name: 'Dan Abramov', 
-    number: '12-43-234345'
-  },
-  { 
-    id: 4,
-    name: 'Mary Poppendick', 
-    number: '39-23-6423122'
-  }
-]
-
 app.get(personsBaseUrl, (request, response, next) => {
   Person.find({}).then(persons => {
     response.json(persons)
   })
-  .catch(next)
+    .catch(next)
 })
 
-app.get(`${personsBaseUrl}/:id`, (request, response) => {
-  const id = Number(request.params.id)
-  const person = persons.find(person => person.id === id)
-
-  if (person) {
-    response.json(person)
-  } else {
-    response.status(404)
-      .end()
-  }
+app.get(`${personsBaseUrl}/:id`, (request, response, next) => {
+  Person.findById(request.params.id).then(person => {
+    if (person) {
+      response.json(person)
+    } else {
+      response.status(404).end()
+    }
+  })
+    .catch(next)
 })
 
 app.post(personsBaseUrl, (request, response, next) => {
@@ -83,7 +59,7 @@ app.post(personsBaseUrl, (request, response, next) => {
   person.save().then(savedPerson => {
     response.json(savedPerson)
   })
-  .catch(next)
+    .catch(next)
 })
 
 app.put(`${personsBaseUrl}/:id`, (request, response, next) => {
@@ -127,17 +103,20 @@ app.delete(`${personsBaseUrl}/:id`, (request, response, next) => {
     .catch(next)
 })
 
-app.get('/info', (request, response) => {
-  response.send(
-    `<div>
-      <p>
-        Phonebook has info for ${persons.length} people
-      </p>
-      <p>
-        ${new Date()}
-      </p>
-    </div>`
-  )
+app.get('/info', (request, response, next) => {
+  Person.countDocuments({}).then(count => {
+    response.send(
+      `<div>
+        <p>
+          Phonebook has info for ${count} people
+        </p>
+        <p>
+          ${new Date()}
+        </p>
+      </div>`
+    )
+  })
+    .catch(next)
 })
 
 const errorHandler = (error, request, response, next) => {
