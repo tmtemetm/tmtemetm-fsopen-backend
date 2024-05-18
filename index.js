@@ -86,6 +86,39 @@ app.post(personsBaseUrl, (request, response, next) => {
   .catch(next)
 })
 
+app.put(`${personsBaseUrl}/:id`, (request, response, next) => {
+  const { name, number } = request.body
+
+  if (!name) {
+    return response.status(400)
+      .json({
+        error: 'name missing'
+      })
+  }
+
+  if (!number) {
+    return response.status(400)
+      .json({
+        error: 'number missing'
+      })
+  }
+
+  const person = {
+    name,
+    number
+  }
+
+  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+    .then(updatedPerson => {
+      if (updatedPerson) {
+        response.json(updatedPerson)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(next)
+})
+
 app.delete(`${personsBaseUrl}/:id`, (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
     .then(result => {

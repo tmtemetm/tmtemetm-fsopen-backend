@@ -1,0 +1,50 @@
+# Note: Change id if doesn't exist
+PUT http://localhost:3001/api/persons/6648eac7ecc89997c95af8c1
+Content-Type: application/json
+
+{
+  "name": "Alan Turing",
+  "number": "23-06-1912"
+}
+
+###
+
+# Number missing, should return 400
+PUT http://localhost:3001/api/persons/6648eac7ecc89997c95af8c1
+Content-Type: application/json
+
+{
+  "name": "Linus Torvalds"
+}
+
+###
+
+# Name missing, should return 400
+PUT http://localhost:3001/api/persons/6648eac7ecc89997c95af8c1
+Content-Type: application/json
+
+{
+  "number": "1337"
+}
+
+###
+
+# Nonexistent id, should return 404
+PUT http://localhost:3001/api/persons/6648eb36ecc89997c95af8c3
+Content-Type: application/json
+
+{
+  "name": "Alan Turing",
+  "number": "23-06-1912"
+}
+
+###
+
+#Malformatted id, should return 400
+PUT http://localhost:3001/api/persons/6
+Content-Type: application/json
+
+{
+  "name": "Alan Turing",
+  "number": "23-06-1912"
+}

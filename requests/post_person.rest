@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ###
 
-# Name missing, should return 400
+# Number missing, should return 400
 POST http://localhost:3001/api/persons
 Content-Type: application/json
 
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ###
 
-# Number missing, should return 400
+# Name missing, should return 400
 POST http://localhost:3001/api/persons
 Content-Type: application/json
 
