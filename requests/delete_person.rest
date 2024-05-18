@@ -1,1 +1,8 @@
 DELETE http://localhost:3001/api/persons/66477ff7ca297028dbe7a304
+
+###
+
+# Malformatted id, should return 400
+DELETE http://localhost:3001/api/persons/6
+
+###
