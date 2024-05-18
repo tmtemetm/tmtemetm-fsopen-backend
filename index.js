@@ -57,9 +57,6 @@ app.get(`${personsBaseUrl}/:id`, (request, response) => {
   }
 })
 
-const generateId = () =>
-  Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
-
 app.post(personsBaseUrl, (request, response) => {
   const { name, number } = request.body
 
@@ -77,21 +74,14 @@ app.post(personsBaseUrl, (request, response) => {
       })
   }
 
-  if (persons.some(person => person.name === name)) {
-    return response.status(400)
-      .json({
-        error: 'name must be unique'
-      })
-  }
-
-  const person = {
-    id: generateId(),
+  const person = new Person({
     name,
     number
-  }
-  persons = persons.concat(person)
+  })
 
-  response.json(person)
+  person.save().then(savedPerson => {
+    response.json(savedPerson)
+  })
 })
 
 app.delete(`${personsBaseUrl}/:id`, (request, response) => {
