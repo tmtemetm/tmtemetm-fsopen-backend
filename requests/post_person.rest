@@ -3,7 +3,17 @@ Content-Type: application/json
 
 {
   "name": "Alan Turing",
-  "number": "23-06-1912"
+  "number": "23-061912"
+}
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Linus Torvalds",
+  "number": "001-123456"
 }
 
 ###
@@ -23,16 +33,60 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-  "number": "1337"
+  "number": "01-13371337"
 }
 
 ###
 
-# Duplicate name, should return 400
+# Name too short, should return 400
 POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-  "name": "Alan Turing",
-  "number": "23-06-1912"
+  "name": "Al",
+  "number": "01-13371337"
+}
+
+###
+
+# Number too short, should return 400
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Linus Torvalds",
+  "number": "01-1"
+}
+
+###
+
+# Number of wrong format, should return 400
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Linus Torvalds",
+  "number": "012345678"
+}
+
+###
+
+# Number of wrong format, should return 400
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Linus Torvalds",
+  "number": "0123-45678"
+}
+
+###
+
+# Number of wrong format, should return 400
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Linus Torvalds",
+  "number": "01-2345678x"
 }

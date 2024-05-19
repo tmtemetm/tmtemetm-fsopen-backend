@@ -11,6 +11,8 @@ mongoose.connect(url)
     console.log('Error connecting to MongoDB', error.message)
   })
 
+const numberValidator = number => /^\d{2,3}-\d+$/.test(number)
+
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -19,6 +21,11 @@ const personSchema = new mongoose.Schema({
   },
   number: {
     type: String,
+    minlength: 8,
+    validate: {
+      validator: numberValidator,
+      message: ({ value }) => `${value} is not a valid phone number`
+    },
     required: true
   }
 })
